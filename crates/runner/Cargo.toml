@@ -1,0 +1,11 @@
+[package]
+name = "runner"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.37", features = ["derive"] }
+logger = { version = "0.1.0", path = "../logger" }
+model = { version = "0.1.0", path = "../model" }
+rand = "0.9.1"
+tokenizer = { version = "0.1.0", path = "../tokenizer" }

@@ -1,0 +1,23 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
+{
+	"name": "classical-poem-llm",
+
+	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"features": {
+		"ghcr.io/devcontainers/features/rust:1": {}
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"EditorConfig.EditorConfig",
+				"maziac.asm-code-lens",
+				"github.vscode-github-actions",
+				"chouzz.vscode-innosetup",
+				"streetsidesoftware.code-spell-checker",
+				"dustypomerleau.rust-syntax"
+			]
+		}
+	}
+}
