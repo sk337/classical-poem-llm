@@ -15,7 +15,8 @@ fn main() {
 
     let model = train_model(&args.input_dir, args.context_size, &log);
 
-    model.save_to_file(&args.output).expect("Failed to save model");
+    model
+        .save_to_file(&args.output)
+        .expect("Failed to save model");
     println!("✅ Training complete. Model saved to {}", args.output);
-
 }

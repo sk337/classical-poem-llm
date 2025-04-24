@@ -19,5 +19,4 @@ pub struct Args {
     /// Enable verbose output
     #[arg(short, long)]
     pub verbose: bool,
-
 }

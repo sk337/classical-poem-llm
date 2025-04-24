@@ -1,6 +1,6 @@
-use std::collections::HashMap;
-use bincode::{config, Decode, Encode};
+use bincode::{Decode, Encode, config};
 use logger::Logger;
+use std::collections::HashMap;
 use std::fs::File;
 use std::io::{Read, Write};
 use tokenizer::Tokenizer;
@@ -60,23 +60,28 @@ impl<'a> NGramModel<'a> {
             "Training complete. {} context windows processed.",
             count
         ));
-        self.log
-            .info(&format!("Current vocab size: {}", self.tokenizer.get_vocab_size()));
+        self.log.info(&format!(
+            "Current vocab size: {}",
+            self.tokenizer.get_vocab_size()
+        ));
     }
 
     pub fn predict_next(&self, context: &[usize]) -> Option<usize> {
-        self.log.info(&format!(
-            "Predicting next token for context: {:?}",
-            context
-        ));
-        let result = self.context_to_next
-            .get(context)
-            .and_then(|next_counts| next_counts.iter().max_by_key(|&(_, &count)| count).map(|(&id, _)| id));
+        self.log
+            .info(&format!("Predicting next token for context: {:?}", context));
+        let result = self.context_to_next.get(context).and_then(|next_counts| {
+            next_counts
+                .iter()
+                .max_by_key(|&(_, &count)| count)
+                .map(|(&id, _)| id)
+        });
 
         if let Some(prediction) = result {
-            self.log.info(&format!("Prediction: token id {}", prediction));
+            self.log
+                .info(&format!("Prediction: token id {}", prediction));
         } else {
-            self.log.warn("No prediction could be made (context not found).");
+            self.log
+                .warn("No prediction could be made (context not found).");
         }
 
         result
@@ -87,7 +92,7 @@ impl<'a> NGramModel<'a> {
         let model = SerializableModel {
             context_size: self.context_size,
             context_to_next: self.context_to_next.clone(),
-            tokenizer: self.tokenizer.clone()
+            tokenizer: self.tokenizer.clone(),
         };
         let bytes = bincode::encode_to_vec(&model, config::standard()).unwrap();
         let mut file = File::create(path)?;
@@ -108,7 +113,7 @@ impl<'a> NGramModel<'a> {
             context_size: model.context_size,
             context_to_next: model.context_to_next,
             log,
-            tokenizer: model.tokenizer
+            tokenizer: model.tokenizer,
         })
     }
 }

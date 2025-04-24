@@ -1,7 +1,7 @@
-use std::fs;
-use model::NGramModel;
-use tokenizer::Tokenizer;
 use logger::Logger;
+use model::NGramModel;
+use std::fs;
+use tokenizer::Tokenizer;
 
 pub fn train_model<'a>(input_dir: &str, context_size: usize, log: &'a Logger) -> NGramModel<'a> {
     log.info(&format!("Loading poems from directory: {}", input_dir));

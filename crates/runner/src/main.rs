@@ -13,8 +13,7 @@ fn main() {
     let args = Args::parse();
     let log = Logger::new(args.verbose);
 
-    let model = NGramModel::load_from_file(&args.model_path, &log)
-        .expect("Failed to load model");
+    let model = NGramModel::load_from_file(&args.model_path, &log).expect("Failed to load model");
 
     let mut tokenizer = Tokenizer::new();
     let prompt = args.prompt.to_lowercase();

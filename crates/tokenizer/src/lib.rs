@@ -1,4 +1,4 @@
-use bincode::{Encode, Decode};
+use bincode::{Decode, Encode};
 use std::collections::HashMap;
 
 #[derive(Debug, Encode, Decode, Clone)]
