@@ -3,9 +3,10 @@
 {
 	"name": "classical-poem-llm",
 
-	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"features": {
-		"ghcr.io/devcontainers/features/rust:1": {}
+		"ghcr.io/devcontainers/features/rust:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 
 	"customizations": {
