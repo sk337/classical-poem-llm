@@ -11,7 +11,12 @@ gh repo clone WerWolv/PatternLanguage
 
 cd PatternLanguage
 
+# goto the 
+git reset --hard 9833500
+
 git submodule update --init --recursive
+
+git apply ../pattern_language.patch
 
 rm -rf build
 

@@ -1,0 +1,17 @@
+diff --git a/lib/include/pl/core/ast/ast_node.hpp b/lib/include/pl/core/ast/ast_node.hpp
+index e7e0703..2a8b3ee 100644
+--- a/lib/include/pl/core/ast/ast_node.hpp
++++ b/lib/include/pl/core/ast/ast_node.hpp
+@@ -20,9 +20,9 @@ namespace pl::core::ast {
+     public:
+         using FunctionResult = std::optional<Token::Literal>;
+ 
+-        constexpr ASTNode() = default;
+-        constexpr virtual ~ASTNode() = default;
+-        constexpr ASTNode(const ASTNode &) = default;
++        ASTNode() = default;
++        virtual ~ASTNode() = default;
++        ASTNode(const ASTNode &) = default;
+ 
+         [[nodiscard]] const Location& getLocation() const;
+         void setLocation(const Location &location);
