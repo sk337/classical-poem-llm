@@ -4,20 +4,18 @@ use args::Args;
 use clap::Parser;
 use logger::Logger;
 use model::NGramModel;
-use tokenizer::Tokenizer;
 
+use rand::rng;
 use rand::seq::IteratorRandom;
-use rand::thread_rng;
 
 fn main() {
     let args = Args::parse();
     let log = Logger::new(args.verbose);
 
-    let model = NGramModel::load_from_file(&args.model_path, &log).expect("Failed to load model");
+    let mut model = NGramModel::load_from_file(&args.model_path, &log).expect("Failed to load model");
 
-    let mut tokenizer = Tokenizer::new();
     let prompt = args.prompt.to_lowercase();
-    let mut context = tokenizer.tokenize(&prompt);
+    let mut context = model.tokenizer.tokenize(&prompt);
 
     if context.len() < model.context_size {
         log.warn(&format!(
@@ -43,7 +41,7 @@ fn main() {
 
         let next_id = model.predict_next(&context).or_else(|| {
             log.warn("Context not found. Falling back to random context...");
-            let mut rng = thread_rng();
+            let mut rng = rng();
             model
                 .context_to_next
                 .keys()
@@ -57,7 +55,7 @@ fn main() {
 
         match next_id {
             Some(token_id) => {
-                if let Some(token) = tokenizer.get_token(token_id) {
+                if let Some(token) = model.tokenizer.get_token(token_id) {
                     print!(" {}", token);
                     context.push(token_id);
                     if context.len() > model.context_size {

@@ -1,3 +1,5 @@
+
+
 struct kvPair<K, V> {
     K key;
     V value;
@@ -25,3 +27,5 @@ struct Model {
     HashMap<Vec<u64>, HashMap<u64, u64>> context_to_next;
     Tokenizer tokenizer;
 };
+
+Model model @ 0x00;

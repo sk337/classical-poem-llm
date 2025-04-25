@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "utility": "cpp"
+    },
+    "cmake.sourceDirectory": "/workspaces/classical-poem-llm/scripts/PatternLanguage"
+}

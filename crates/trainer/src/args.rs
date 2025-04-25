@@ -19,4 +19,8 @@ pub struct Args {
     /// Enable verbose output
     #[arg(short, long)]
     pub verbose: bool,
+
+    /// Enable quiet output
+    #[arg(short, long)]
+    pub quite: bool,
 }

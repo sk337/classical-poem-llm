@@ -1,4 +1,5 @@
 use bincode::{Decode, Encode, config};
+use humansize::{FormatSize, WINDOWS};
 use logger::Logger;
 use std::collections::HashMap;
 use std::fs::File;
@@ -98,6 +99,10 @@ impl<'a> NGramModel<'a> {
         let mut file = File::create(path)?;
         file.write_all(&bytes)?;
         self.log.info("Model successfully saved.");
+        self.log.info(&format!(
+            "Model size: {}",
+            bytes.len().format_size(WINDOWS)
+        ));
         Ok(())
     }
 

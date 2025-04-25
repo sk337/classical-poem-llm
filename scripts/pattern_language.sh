@@ -1,4 +1,8 @@
-sudo clang.sh && sudo cmake.sh
+#!/bin/bash
+set -euo pipefail
+
+sudo ./clang.sh
+sudo ./cmake_install.sh
 
 sudo apt update
 sudo apt install -y       \
@@ -6,6 +10,13 @@ sudo apt install -y       \
     lld                   \
     ninja-build           \
     ccache
+
+
+# Check if the directory already exists
+if [ -d PatternLanguage ]; then
+    echo "PatternLanguage directory already exists. Deleting it."
+    rm -rf PatternLanguage
+fi
 
 gh repo clone WerWolv/PatternLanguage
 
@@ -16,10 +27,11 @@ git reset --hard 9833500
 
 git submodule update --init --recursive
 
-# if pattern_language.patch exists, apply it
-if [ -f ../pattern_language.patch ]; then
-    git apply ../pattern_language.patch
-fi
+cd ..
+
+./apply_patches.sh
+
+cd PatternLanguage
 
 rm -rf build
 
@@ -38,3 +50,4 @@ CC=clang-18 CXX=clang++-18 cmake            \
     ..
 
 ninja -j$(nproc)
+sudo ninja install
