@@ -16,7 +16,10 @@ git reset --hard 9833500
 
 git submodule update --init --recursive
 
-git apply ../pattern_language.patch
+# if pattern_language.patch exists, apply it
+if [ -f ../pattern_language.patch ]; then
+    git apply ../pattern_language.patch
+fi
 
 rm -rf build
 
