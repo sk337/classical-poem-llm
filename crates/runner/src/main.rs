@@ -10,9 +10,10 @@ use rand::seq::IteratorRandom;
 
 fn main() {
     let args = Args::parse();
-    let log = Logger::new(args.verbose);
+    let log = Logger::new(args.verbose, args.quiet);
 
-    let mut model = NGramModel::load_from_file(&args.model_path, &log).expect("Failed to load model");
+    let mut model =
+        NGramModel::load_from_file(&args.model_path, &log).expect("Failed to load model");
 
     let prompt = args.prompt.to_lowercase();
     let mut context = model.tokenizer.tokenize(&prompt);
@@ -33,7 +34,7 @@ fn main() {
         context.insert(0, 0); // Pad with 0s (unknown token ID)
     }
 
-    print!("{}", args.prompt);
+    let mut output = prompt.clone();
 
     for i in 0..args.length {
         log.info(&format!("Generating token {} of {}", i + 1, args.length));
@@ -56,7 +57,7 @@ fn main() {
         match next_id {
             Some(token_id) => {
                 if let Some(token) = model.tokenizer.get_token(token_id) {
-                    print!(" {}", token);
+                    output.push_str(format!(" {}", &token).as_str());
                     context.push(token_id);
                     if context.len() > model.context_size {
                         context.remove(0);
@@ -73,5 +74,5 @@ fn main() {
         }
     }
 
-    println!();
+    println!("{}", output);
 }

@@ -2,6 +2,9 @@
 name = "runner"
 version = "0.1.0"
 edition = "2024"
+description = "A command line tool for running the model"
+license = "GPL-3.0-or-later"
+authors = ["sk337 <me@pk3.zip>"]
 
 [dependencies]
 clap = { version = "4.5.37", features = ["derive"] }

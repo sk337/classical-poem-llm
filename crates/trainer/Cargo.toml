@@ -2,6 +2,9 @@
 name = "trainer"
 version = "0.1.0"
 edition = "2024"
+description = "A command line tool for training a model"
+license = "GPL-3.0-or-later"
+authors = ["sk337 <me@pk3.zip>"]
 
 [dependencies]
 cargo_metadata = "0.19.2"

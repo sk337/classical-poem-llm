@@ -9,7 +9,7 @@ use train::train_model;
 fn main() {
     let args = Args::parse();
 
-    let log = Logger::new(args.verbose && !args.quite);
+    let log = Logger::new(args.verbose && !args.quite, args.quite);
 
     if !args.quite {
         println!("Training with context size: {}", args.context_size)

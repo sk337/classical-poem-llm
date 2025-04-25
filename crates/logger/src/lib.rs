@@ -1,11 +1,12 @@
 #[derive(Clone, Debug)]
 pub struct Logger {
     pub verbose: bool,
+    pub quiet: bool,
 }
 
 impl Logger {
-    pub fn new(verbose: bool) -> Self {
-        Self { verbose }
+    pub fn new(verbose: bool, quiet: bool) -> Self {
+        Self { verbose, quiet }
     }
 
     pub fn info(&self, message: &str) {
@@ -15,7 +16,9 @@ impl Logger {
     }
 
     pub fn warn(&self, message: &str) {
-        eprintln!("[WARN] {}", message);
+        if !self.quiet {
+            eprintln!("[WARN] {}", message);
+        }
     }
 
     pub fn error(&self, message: &str) {
